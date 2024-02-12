@@ -30,7 +30,7 @@ def search_btn_pressed(adres, delta=0.005):
     toponym_coodrinates = toponym["Point"]["pos"]
     toponym_longitude, toponym_lattitude = toponym_coodrinates.split(" ")
 
-    delta = str(delta) # размер карты
+    delta = str(delta)  # размер карты
 
     map_params = {
         "ll": ",".join([toponym_longitude, toponym_lattitude]),
