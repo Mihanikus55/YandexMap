@@ -30,41 +30,42 @@ class YandexMap(QMainWindow, Ui_MainWindow):
 
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_Up:
-            self.toponym_lattitude = str(int(self.toponym_lattitude) + 1)
+            self.toponym_lattitude = str(float(self.toponym_lattitude) + self.delta)
             self.map_image()
         if event.key() == Qt.Key_Down:
-            self.toponym_lattitude = str(int(self.toponym_lattitude) - 1)
+            self.toponym_lattitude = str(float(self.toponym_lattitude) - self.delta)
             self.map_image()
 
         if event.key() == Qt.Key_Right:
-            self.toponym_longitude = str(int(self.toponym_longitude) + 1)
+            self.toponym_longitude = str(float(self.toponym_longitude) + self.delta)
             self.map_image()
         if event.key() == Qt.Key_Left:
-            self.toponym_longitude = str(int(self.toponym_longitude) + 1)
+            self.toponym_longitude = str(float(self.toponym_longitude) + self.delta)
+            self.map_image()
+        if event.key() == Qt.Key_PageUp:
+            self.delta /= 2
+            self.map_image()
+        if event.key() == Qt.Key_PageDown:
+            self.delta *= 2
             self.map_image()
 
     def search_place(self):
-        print('Ищем ваш запрос')
         self.adres = self.seaarch_line.text()
         self.find_toponim()
         self.map_image()
 
     def clear_the_search(self):
-        print('Очищаем запрос')
         self.seaarch_line.setText("")
 
     def do_scheme_map(self):
-        print('Схематическая карта')
         self.map_mod = "map"
         self.map_image()
 
     def do_sattelite_map(self):
-        print('Спутниковая карта')
         self.map_mod = "sat"
         self.map_image()
 
     def do_hybrid_map(self):
-        print('Гибридная карта')
         self.map_mod = "sat,skl"
         self.map_image()
 
