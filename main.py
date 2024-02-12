@@ -1,14 +1,13 @@
 import sys
 
-from PyQt5 import uic  # Импортируем uic
-from PyQt5.QtWidgets import QApplication
+from PyQt5.QtWidgets import QApplication, QMainWindow
 from maps import Ui_MainWindow
 
 
-class YandexMap(Ui_MainWindow):
+class YandexMap(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('maps.ui', self)  # Загружаем дизайн
+        self.setupUi(self)
         self.search_btn.clicked.connect(self.search_place)
         self.clear_btn.clicked.connect(self.clear_the_search)
         self.scheme_btn.clicked.connect(self.do_scheme_map)
@@ -22,13 +21,13 @@ class YandexMap(Ui_MainWindow):
         print('Очищаем запрос')
 
     def do_scheme_map(self):
-        print('Ищем ваш запрос')
+        print('Схематическая карта')
 
     def do_sattelite_map(self):
-        print('Ищем ваш запрос')
+        print('Спутниковая карта')
 
     def do_hybrid_map(self):
-        print('Ищем ваш запрос')
+        print('Гибридная карта')
 
 
 if __name__ == '__main__':
