@@ -7,6 +7,8 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap
 from maps import Ui_MainWindow
 
+from PIL import Image
+
 
 class YandexMap(QMainWindow, Ui_MainWindow):
     def __init__(self):
@@ -28,28 +30,43 @@ class YandexMap(QMainWindow, Ui_MainWindow):
 
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_Up:
-            pass
+            self.toponym_lattitude = str(int(self.toponym_lattitude) + 1)
+            self.map_image()
         if event.key() == Qt.Key_Down:
-            pass
+            self.toponym_lattitude = str(int(self.toponym_lattitude) - 1)
+            self.map_image()
+
         if event.key() == Qt.Key_Right:
-            pass
+            self.toponym_longitude = str(int(self.toponym_longitude) + 1)
+            self.map_image()
         if event.key() == Qt.Key_Left:
-            pass
+            self.toponym_longitude = str(int(self.toponym_longitude) + 1)
+            self.map_image()
 
     def search_place(self):
         print('Ищем ваш запрос')
+        self.adres = self.seaarch_line.text()
+        self.find_toponim()
+        self.map_image()
 
     def clear_the_search(self):
         print('Очищаем запрос')
+        self.seaarch_line.setText("")
 
     def do_scheme_map(self):
         print('Схематическая карта')
+        self.map_mod = "map"
+        self.map_image()
 
     def do_sattelite_map(self):
         print('Спутниковая карта')
+        self.map_mod = "sat"
+        self.map_image()
 
     def do_hybrid_map(self):
         print('Гибридная карта')
+        self.map_mod = "sat,skl"
+        self.map_image()
 
     def find_toponim(self):
         if not self.adres:
@@ -82,9 +99,9 @@ class YandexMap(QMainWindow, Ui_MainWindow):
 
         map_api_server = "http://static-maps.yandex.ru/1.x/"
         response = requests.get(map_api_server, params=map_params)
-        image = Image.open(BytesIO(response.content))
+        Image.open(BytesIO(response.content)).save('map.png')
 
-        self.map.setPixmap(QPixmap(image))
+        self.map.setPixmap(QPixmap('map.png'))
 
 
 if __name__ == '__main__':
