@@ -29,25 +29,29 @@ class YandexMap(QMainWindow, Ui_MainWindow):
         self.hybrid_btn.clicked.connect(self.do_hybrid_map)
 
     def keyPressEvent(self, event):
-        if event.key() == Qt.Key_Up:
+
+        if event.key() == Qt.Key_W:
             self.toponym_lattitude = str(float(self.toponym_lattitude) + self.delta)
             self.map_image()
-        if event.key() == Qt.Key_Down:
+        if event.key() == Qt.Key_S:
             self.toponym_lattitude = str(float(self.toponym_lattitude) - self.delta)
             self.map_image()
 
-        if event.key() == Qt.Key_Right:
+        if event.key() == Qt.Key_D:
             self.toponym_longitude = str(float(self.toponym_longitude) + self.delta)
             self.map_image()
-        if event.key() == Qt.Key_Left:
+        if event.key() == Qt.Key_A:
             self.toponym_longitude = str(float(self.toponym_longitude) + self.delta)
             self.map_image()
         if event.key() == Qt.Key_PageUp:
-            self.delta /= 2
-            self.map_image()
+            if self.delta > 0.0003125:
+                self.delta /= 2
+                self.map_image()
         if event.key() == Qt.Key_PageDown:
-            self.delta *= 2
-            self.map_image()
+            if self.delta < 40.96:
+                self.delta *= 2
+                self.map_image()
+
 
     def search_place(self):
         self.adres = self.seaarch_line.text()
