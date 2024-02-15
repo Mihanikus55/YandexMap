@@ -41,7 +41,7 @@ class YandexMap(QMainWindow, Ui_MainWindow):
             self.toponym_longitude = str(float(self.toponym_longitude) + self.delta)
             self.map_image()
         if event.key() == Qt.Key_A:
-            self.toponym_longitude = str(float(self.toponym_longitude) + self.delta)
+            self.toponym_longitude = str(float(self.toponym_longitude) - self.delta)
             self.map_image()
         if event.key() == Qt.Key_PageUp:
             if self.delta > 0.0003125:
